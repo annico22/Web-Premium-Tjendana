@@ -1,0 +1,25 @@
+/* style.css */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #F5E6CA; }
+::-webkit-scrollbar-thumb { background: #795548; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #4E342E; }
+
+.batik-bg { position: relative; background-color: #F5E6CA; }
+.batik-bg::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%234E342E" fill-opacity="0.05"/></svg>');
+    pointer-events: none; z-index: 0;
+}
+.batik-bg > * { position: relative; z-index: 1; }
+
+.hero-content { opacity: 0; transform: translateY(30px); }
+
+.menu-card { transition: all 0.3s ease; }
+.menu-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+.menu-card-img-wrapper { overflow: hidden; }
+.menu-card-img-wrapper img { transition: transform 0.5s ease; }
+.menu-card:hover .menu-card-img-wrapper img { transform: scale(1.1); }
+
+#mobile-menu { transform: translateY(-10px); opacity: 0; pointer-events: none; transition: all 0.3s ease; }
+#mobile-menu.active { transform: translateY(0); opacity: 1; pointer-events: auto; }
+.mobile-link { font-size: 1.125rem; padding: 0.5rem 0; width: 100%; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }

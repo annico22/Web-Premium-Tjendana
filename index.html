@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayam Gurih Tjendana | Premium Indonesian Culinary</title>
+    <meta name="description" content="Ayam Gurih Tjendana menghadirkan pengalaman kuliner Nusantara premium dengan resep legendaris.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bistro-dark': '#24140e',    /* Cokelat sangat pekat / hampir hitam */
+                        'bistro-brown': '#6d422a',   /* Cokelat kayu klasik */
+                        'bistro-gold': '#c49a6c',    /* Cokelat keemasan untuk aksen */
+                        'bistro-light': '#faf7f2',   /* Putih tulang / cream sangat terang */
+                        'brand-white': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        'playfair': ['"Playfair Display"', 'serif'],
+                        'poppins': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Tambahan elemen dekoratif ala Bistro */
+        .bistro-border {
+            border: 1px solid rgba(196, 154, 108, 0.3);
+        }
+        .bistro-frame {
+            position: relative;
+        }
+        .bistro-frame::after {
+            content: '';
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            z-index: 20;
+        }
+        .menu-list-item {
+            border-bottom: 1px dashed rgba(109, 66, 42, 0.2);
+        }
+        .menu-list-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="font-poppins bg-bistro-light text-bistro-dark overflow-x-hidden selection:bg-bistro-gold selection:text-white">
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 bg-bistro-dark z-[9999] flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="w-16 h-16 border-2 border-bistro-gold border-t-transparent rounded-full animate-spin"></div>
+        <h2 class="font-playfair italic text-bistro-gold text-2xl mt-6 tracking-[0.2em]">TJENDANA</h2>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-500 bg-transparent py-4 px-6 md:px-12 border-b border-white/10">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            
+            <!-- Logo Saja -->
+            <a href="#" class="flex items-center hover:opacity-80 transition-opacity z-50">
+                <img src="logo.png" alt="Logo Ayam Gurih Tjendana" class="h-14 md:h-20 w-auto object-contain bg-white/90 backdrop-blur-sm rounded-md px-3 py-2 shadow-lg border border-bistro-gold/30">
+            </a>
+            
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex space-x-10 items-center font-medium text-white tracking-wide text-sm">
+                <a href="#beranda" class="hover:text-bistro-gold transition-colors uppercase">Beranda</a>
+                <a href="#tentang" class="hover:text-bistro-gold transition-colors uppercase">Cerita Kami</a>
+                <a href="#menu" class="hover:text-bistro-gold transition-colors uppercase">Menu</a>
+                <a href="#galeri" class="hover:text-bistro-gold transition-colors uppercase">Galeri</a>
+                <a href="https://wa.me/6282221739567" target="_blank" class="border border-bistro-gold text-bistro-gold px-8 py-2.5 hover:bg-bistro-gold hover:text-white transition-all duration-300">
+                    RESERVASI
+                </a>
+            </nav>
+            
+            <!-- Mobile Toggle -->
+            <button id="mobile-menu-btn" class="lg:hidden text-2xl text-white focus:outline-none z-50"><i class="fas fa-bars"></i></button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden absolute top-0 left-0 w-full h-screen bg-bistro-dark text-white flex-col items-center justify-center space-y-8 lg:hidden z-40">
+            <a href="#beranda" class="text-2xl font-playfair hover:text-bistro-gold mobile-link">Beranda</a>
+            <a href="#tentang" class="text-2xl font-playfair hover:text-bistro-gold mobile-link">Cerita Kami</a>
+            <a href="#menu" class="text-2xl font-playfair hover:text-bistro-gold mobile-link">Menu</a>
+            <a href="#galeri" class="text-2xl font-playfair hover:text-bistro-gold mobile-link">Galeri</a>
+            <a href="https://wa.me/6282221739567" class="border border-bistro-gold text-bistro-gold px-8 py-3 mt-4 hover:bg-bistro-gold hover:text-white transition-colors">Reservasi</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative h-screen flex items-center justify-center text-center overflow-hidden bistro-frame">
+        <!-- Overlay Gelap -->
+        <div class="absolute inset-0 bg-bistro-dark/70 z-10"></div>
+        
+        <!-- Background Video -->
+        <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0 opacity-80">
+            <source src="https://videos.pexels.com/video-files/3205827/3205827-uhd_2560_1440_25fps.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Konten Hero -->
+        <div class="relative z-20 px-6 max-w-4xl mx-auto hero-content flex flex-col items-center">
+            <span class="text-bistro-gold font-poppins tracking-[0.3em] uppercase text-sm mb-4" data-aos="fade-down">Resep Legendaris Sejak Generasi Terbaik</span>
+            <div class="w-20 h-[1px] bg-bistro-gold/50 mb-8"></div>
+            
+            <h1 class="font-playfair text-6xl md:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-xl">
+                Ayam Gurih <br> <span class="italic font-normal text-bistro-gold">Tjendana</span>
+            </h1>
+            
+            <p class="text-lg text-gray-300 mb-12 font-light max-w-2xl drop-shadow-md">
+                Menyajikan simfoni rasa Nusantara—Ayam Bakar, Goreng, dan Kukus yang diracik dengan dedikasi dan bumbu autentik pilihan.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+                <a href="#menu" class="px-10 py-4 bg-white text-bistro-dark font-semibold tracking-wide hover:bg-bistro-gold hover:text-white transition-all duration-300">
+                    LIHAT MENU
+                </a>
+                <a href="https://wa.me/6282221739567" target="_blank" class="px-10 py-4 border border-white/50 text-white font-semibold tracking-wide hover:border-bistro-gold hover:text-bistro-gold transition-all duration-300 flex items-center">
+                    <i class="fab fa-whatsapp mr-2"></i> PESAN SEKARANG
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cerita Kami (About) -->
+    <section id="tentang" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Teks -->
+            <div data-aos="fade-right">
+                <span class="text-bistro-gold font-poppins tracking-[0.2em] uppercase text-xs font-bold">Tradisi & Rasa</span>
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-bistro-dark mt-4 mb-8 leading-tight">
+                    Sebuah dedikasi untuk <br> <span class="italic font-normal text-bistro-brown">kuliner Nusantara.</span>
+                </h2>
+                <p class="text-gray-600 leading-relaxed mb-6 font-light text-justify">
+                    Ayam Gurih Tjendana bukan sekadar restoran; ini adalah perayaan rasa autentik Indonesia. Kami percaya bahwa setiap bahan masakan memiliki cerita. Menggunakan rempah-rempah pilihan terbaik, setiap hidangan kami dimasak perlahan untuk menghadirkan rasa gurih yang meresap sempurna.
+                </p>
+                <div class="mt-10 flex gap-12">
+                    <div>
+                        <h3 class="font-playfair text-4xl text-bistro-brown mb-2 counter" data-target="10">0</h3>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider font-bold">Menu Spesial</p>
+                    </div>
+                    <div>
+                        <h3 class="font-playfair text-4xl text-bistro-brown mb-2 counter" data-target="250">0</h3>
+                        <p class="text-xs text-gray-400 uppercase tracking-wider font-bold">Pengunjung Harian</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gambar Overlapping -->
+            <div class="relative h-[600px]" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suasana Restoran" class="absolute top-0 right-0 w-4/5 h-[450px] object-cover shadow-2xl">
+                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detail Makanan" class="absolute bottom-0 left-0 w-3/5 h-[350px] object-cover shadow-2xl border-8 border-bistro-light">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-bistro-gold/40 rounded-full animate-pulse z-0 hidden md:block"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-32 bg-white">
+        <div class="max-w-6xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <i class="fas fa-utensils text-bistro-gold text-2xl mb-4"></i>
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-bistro-dark mb-4">Sajian Mahakarya</h2>
+                <div class="w-24 h-[1px] bg-bistro-brown mx-auto mb-8"></div>
+                
+                <!-- Tombol Buku Menu Digital -->
+                <button onclick="openEMenu()" class="bg-bistro-dark text-white px-8 py-3 font-medium hover:bg-bistro-brown transition-colors shadow-lg inline-flex items-center tracking-wide">
+                    <i class="fas fa-book-open mr-3 text-bistro-gold"></i> BACA BUKU MENU
+                </button>
+            </div>
+
+            <!-- List Menu Dinamis -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-2">
+                <!-- Data di-inject via JavaScript -->
+                <div id="menu-container" class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                    <!-- JS Injected items -->
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <a href="https://wa.me/6282221739567" target="_blank" class="inline-block border-b border-bistro-gold text-bistro-brown font-semibold hover:text-bistro-dark transition-colors pb-1">
+                    Hubungi kami untuk pesanan khusus &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pop-up Buku Menu (E-Menu) -->
+    <div id="emenu-lightbox" class="fixed inset-0 bg-bistro-dark/95 z-[10000] hidden flex-col items-center overflow-y-auto py-10 px-4 opacity-0 transition-opacity duration-300">
+        <button onclick="closeEMenu()" class="fixed top-4 right-6 text-white hover:text-bistro-gold z-50 transition-colors">
+            <i class="fas fa-times text-4xl"></i>
+        </button>
+        <div class="max-w-5xl w-full space-y-12 mt-12 pb-12">
+            <img src="menu-makanan.png" alt="Menu Makanan Tjendana" class="w-full shadow-2xl border-4 border-bistro-brown/30">
+            <img src="menu-minuman.png" alt="Menu Minuman Tjendana" class="w-full shadow-2xl border-4 border-bistro-brown/30">
+        </div>
+    </div>
+
+    <!-- Banner Pemisah -->
+    <section class="py-24 bg-bistro-dark relative flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+        <div class="relative z-10 text-center px-6" data-aos="zoom-in">
+            <i class="fas fa-quote-left text-bistro-gold text-4xl mb-6"></i>
+            <h2 class="font-playfair text-3xl md:text-4xl text-white italic max-w-3xl leading-snug">
+                "Kelezatan sejati tidak diciptakan dengan terburu-buru, melainkan lewat rasa hormat pada proses dan resep yang diwariskan."
+            </h2>
+        </div>
+    </section>
+
+    <!-- Galeri Masonry -->
+    <section id="galeri" class="py-32 bg-bistro-light px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-bistro-gold font-poppins tracking-[0.2em] uppercase text-xs font-bold">Atmosfer</span>
+                <h2 class="font-playfair text-4xl font-bold text-bistro-dark mt-2">Suasana Tjendana</h2>
+            </div>
+            
+            <!-- Grid Masonry dengan 6 Gambar -->
+            <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+                <!-- Foto 1 -->
+                <div class="break-inside-avoid overflow-hidden relative group" data-aos="fade-up" data-aos-delay="0">
+                    <img src="https://images.unsplash.com/photo-1626804475297-4160bbce551e?w=800&q=80" alt="Suasana 1" class="w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                </div>
+                <!-- Foto 2 -->
+                <div class="break-inside-avoid overflow-hidden relative group" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80" alt="Suasana 2" class="w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                </div>
+                <!-- Foto 3 -->
+                <div class="break-inside-avoid overflow-hidden relative group" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80" alt="Suasana 3" class="w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                </div>
+                <!-- Foto 4 -->
+                <div class="break-inside-avoid overflow-hidden relative group" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1548943487-a2e4f43b4853?w=800&q=80" alt="Suasana 4" class="w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                </div>
+                <!-- Foto 5 -->
+                <div class="break-inside-avoid overflow-hidden relative group" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80" alt="Suasana 5" class="w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                </div>
+                <!-- Foto 6 -->
+                <div class="break-inside-avoid overflow-hidden relative group" data-aos="fade-up" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80" alt="Suasana 6" class="w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0">
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-bistro-dark text-white pt-20 pb-10 border-t border-bistro-gold/20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left mb-16">
+            
+            <!-- Kolom 1: Logo & Deskripsi -->
+            <div>
+                <img src="logo.png" alt="Logo" class="h-16 mx-auto md:mx-0 bg-white/10 p-2 rounded mb-6 grayscale opacity-70">
+                <p class="text-gray-400 font-light leading-relaxed">Mengabadikan cita rasa tradisional dalam setiap gigitan. Ayam Gurih Tjendana, tempat di mana rasa menjadi memori.</p>
+            </div>
+            
+            <!-- Kolom 2: Jam Buka -->
+            <div class="flex flex-col items-center md:items-start">
+                <h4 class="font-playfair text-xl text-bistro-gold mb-6">Jam Buka</h4>
+                <ul class="text-gray-300 font-light text-sm w-full max-w-[200px] space-y-2 mb-6">
+                    <li class="flex justify-between"><span>Senin</span> <span>11.00–22.00</span></li>
+                    <li class="flex justify-between"><span>Selasa</span> <span>11.00–22.00</span></li>
+                    <li class="flex justify-between"><span>Rabu</span> <span>11.00–22.00</span></li>
+                    <li class="flex justify-between"><span>Kamis</span> <span>11.00–22.00</span></li>
+                    <li class="flex justify-between"><span>Jumat</span> <span>11.00–22.00</span></li>
+                    <li class="flex justify-between"><span>Sabtu</span> <span>11.00–22.00</span></li>
+                    <li class="flex justify-between"><span>Minggu</span> <span>11.00–22.00</span></li>
+                </ul>
+                <a href="https://wa.me/6282221739567" class="text-bistro-gold hover:text-white transition-colors"><i class="fab fa-whatsapp mr-2"></i> Reservasi Meja</a>
+            </div>
+            
+            <!-- Kolom 3: Lokasi -->
+            <div class="flex flex-col items-center md:items-start">
+                <h4 class="font-playfair text-xl text-bistro-gold mb-6">Lokasi Kami</h4>
+                <p class="text-gray-300 font-light mb-4 text-center md:text-left">Jl. Kedondong No.10, Rawamangun<br>Jakarta Timur, 13220</p>
+                <a href="https://maps.app.goo.gl/ia9JKmdipJ7GVBTMA" target="_blank" class="border border-white/20 px-6 py-2 hover:bg-white hover:text-bistro-dark transition-colors text-sm">Buka Peta</a>
+            </div>
+
+        </div>
+        <div class="text-center text-gray-500 text-xs font-light tracking-wider">
+            &copy; 2026 AYAM GURIH TJENDANA. SELURUH HAK CIPTA DILINDUNGI.
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
