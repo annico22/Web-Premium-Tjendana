@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Tjendana</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { 'brand-dark': '#4E342E', 'brand-wood': '#795548', 'brand-cream': '#F5E6CA', } } }
+        }
+    </script>
+</head>
+<body class="font-poppins bg-gray-100 min-h-screen">
+
+    <div id="admin-login" class="min-h-screen flex items-center justify-center p-6">
+        <div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-brand-dark font-playfair">Admin Tjendana</h2>
+                <a href="../index.html" class="text-sm text-gray-500 hover:text-brand-wood">&larr; Ke Web</a>
+            </div>
+            <form id="login-form">
+                <input type="text" id="admin-user" placeholder="Username" class="w-full mb-4 px-3 py-2 border rounded" value="admin" required>
+                <input type="password" id="admin-pass" placeholder="Password" class="w-full mb-6 px-3 py-2 border rounded" value="admin123" required>
+                <button type="submit" class="w-full bg-brand-dark text-white font-bold py-2 rounded">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-dashboard" class="hidden min-h-screen">
+        <nav class="bg-brand-dark text-white p-4 flex justify-between shadow-md">
+            <h1 class="font-bold font-playfair text-xl">Kelola Menu Bestseller</h1>
+            <div>
+                <a href="../index.html" target="_blank" class="mr-4 hover:underline">Lihat Web</a>
+                <button id="logout-btn" class="bg-red-600 px-4 py-1 rounded">Logout</button>
+            </div>
+        </nav>
+        
+        <div class="p-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded shadow h-fit">
+                <h3 class="font-bold mb-4">Form Menu Bestseller</h3>
+                <form id="menu-form" class="space-y-4">
+                    <input type="hidden" id="menu-id">
+                    <input type="text" id="menu-name" placeholder="Nama Menu" required class="w-full p-2 border rounded">
+                    <select id="menu-category" class="w-full p-2 border rounded">
+                        <option value="bakar">Ayam Bakar</option>
+                        <option value="goreng">Ayam Goreng</option>
+                        <option value="sate">Sate / Lauk</option>
+                    </select>
+                    <textarea id="menu-desc" placeholder="Deskripsi Singkat" required class="w-full p-2 border rounded"></textarea>
+                    <input type="number" id="menu-price" placeholder="Harga (Rp)" required class="w-full p-2 border rounded">
+                    <input type="url" id="menu-img" placeholder="Link Gambar (http://...)" required class="w-full p-2 border rounded">
+                    <button type="submit" class="w-full bg-brand-wood text-white p-2 rounded">Simpan Menu</button>
+                </form>
+            </div>
+
+            <div class="bg-white p-6 rounded shadow md:col-span-2 overflow-x-auto">
+                <h3 class="font-bold mb-4">Daftar Menu Tersimpan</h3>
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="p-2">Menu</th>
+                            <th class="p-2">Harga</th>
+                            <th class="p-2 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="menu-list"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginSection = document.getElementById('admin-login');
+            const dashboardSection = document.getElementById('admin-dashboard');
+            const formatRp = (angka) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(angka);
+
+            if (localStorage.getItem('admin_logged') === 'true') {
+                loginSection.classList.add('hidden');
+                dashboardSection.classList.remove('hidden');
+                renderAdminMenu();
+            }
+
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (document.getElementById('admin-user').value === 'admin' && document.getElementById('admin-pass').value === 'admin123') {
+                    localStorage.setItem('admin_logged', 'true');
+                    loginSection.classList.add('hidden');
+                    dashboardSection.classList.remove('hidden');
+                    renderAdminMenu();
+                } else alert('Salah password!');
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('admin_logged');
+                dashboardSection.classList.add('hidden');
+                loginSection.classList.remove('hidden');
+            });
+
+            function renderAdminMenu() {
+                const tbody = document.getElementById('menu-list');
+                const menus = JSON.parse(localStorage.getItem('tjendana_menu')) || [];
+                tbody.innerHTML = '';
+                menus.forEach(m => {
+                    tbody.innerHTML += `
+                        <tr class="border-b">
+                            <td class="p-2 font-medium">${m.name}<br><span class="text-xs text-gray-500">${m.category}</span></td>
+                            <td class="p-2">${formatRp(m.price)}</td>
+                            <td class="p-2 text-center">
+                                <button onclick="editMenu(${m.id})" class="text-blue-500 mr-2"><i class="fas fa-edit"></i></button>
+                                <button onclick="deleteMenu(${m.id})" class="text-red-500"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+
+            document.getElementById('menu-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('menu-id').value;
+                const mData = {
+                    id: id ? parseInt(id) : Date.now(),
+                    name: document.getElementById('menu-name').value,
+                    category: document.getElementById('menu-category').value,
+                    desc: document.getElementById('menu-desc').value,
+                    price: parseInt(document.getElementById('menu-price').value),
+                    img: document.getElementById('menu-img').value
+                };
+
+                let menus = JSON.parse(localStorage.getItem('tjendana_menu')) || [];
+                if (id) {
+                    const idx = menus.findIndex(x => x.id == id);
+                    menus[idx] = mData;
+                } else menus.push(mData);
+
+                localStorage.setItem('tjendana_menu', JSON.stringify(menus));
+                e.target.reset(); document.getElementById('menu-id').value = '';
+                renderAdminMenu();
+                alert('Tersimpan!');
+            });
+
+            window.deleteMenu = (id) => {
+                if (confirm('Hapus?')) {
+                    let menus = JSON.parse(localStorage.getItem('tjendana_menu'));
+                    localStorage.setItem('tjendana_menu', JSON.stringify(menus.filter(m => m.id !== id)));
+                    renderAdminMenu();
+                }
+            };
+
+            window.editMenu = (id) => {
+                const m = JSON.parse(localStorage.getItem('tjendana_menu')).find(x => x.id === id);
+                if (m) {
+                    document.getElementById('menu-id').value = m.id;
+                    document.getElementById('menu-name').value = m.name;
+                    document.getElementById('menu-category').value = m.category;
+                    document.getElementById('menu-desc').value = m.desc;
+                    document.getElementById('menu-price').value = m.price;
+                    document.getElementById('menu-img').value = m.img;
+                }
+            };
+        });
+    </script>
+</body>
+</html>
